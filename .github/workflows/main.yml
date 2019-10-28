@@ -15,6 +15,7 @@ jobs:
         FTP_SERVER: 185.53.173.97
         FTP_USERNAME: subarustage
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        LOCAL_DIR: public_html
         ARGS: --delete
 
     - name: Run a multi-line script
