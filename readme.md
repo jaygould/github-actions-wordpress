@@ -1,3 +1,3 @@
 # Github actions WordPress
 
-STAGING
+README FILE
