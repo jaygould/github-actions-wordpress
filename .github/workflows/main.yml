@@ -10,20 +10,20 @@ jobs:
     - name: Checkout files
     - uses: actions/checkout@v1
 
-  # test:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - name: Hello world
-  #     uses: actions/hello-world-javascript-action@v1
-  #     with:
-  #       who-to-greet: 'Jay Gould'
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Hello world
+    - uses: actions/hello-world-javascript-action@v1
+      with:
+        who-to-greet: 'Jay Gould'
 
   deploy:
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
     - name: Deploy website
-      uses: jaygould/FTP-Deploy-Action@2.0.0
+    - uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
         FTP_SERVER: 185.53.173.97
         FTP_USERNAME: subarustage
