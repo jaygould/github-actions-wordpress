@@ -4,13 +4,19 @@ on: [push]
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v1
-    - name: Run a one-line script
-      run: echo Hello, world!
+
+    - name: Deploy website
+      uses: jaygould/FTP-Deploy-Action@2.0.0
+      env:
+        FTP_SERVER: 185.53.173.97
+        FTP_USERNAME: subarustage
+        FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+        ARGS: --delete
+
     - name: Run a multi-line script
       run: |
         echo Add other actions to build,
