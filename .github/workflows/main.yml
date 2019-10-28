@@ -8,13 +8,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout files
-    - uses: actions/checkout@v1
+      uses: actions/checkout@v1
 
   test:
     runs-on: ubuntu-latest
     steps:
     - name: Hello world
-    - uses: actions/hello-world-javascript-action@v1
+      uses: actions/hello-world-javascript-action@v1
       with:
         who-to-greet: 'Jay Gould'
 
@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Deploy website
-    - uses: jaygould/FTP-Deploy-Action@2.0.0
+      uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
         FTP_SERVER: 185.53.173.97
         FTP_USERNAME: subarustage
@@ -31,6 +31,6 @@ jobs:
         REMOTE_DIR: public_html
         ARGS: --delete
     - name: Run a multi-line script
-    - run: |
+      run: |
         echo Add other actions to build,
         echo test, and deploy your project.
