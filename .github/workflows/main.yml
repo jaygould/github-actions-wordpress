@@ -14,15 +14,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Hello world
-      id: hello
       uses: actions/hello-world-javascript-action@v1
       with:
         who-to-greet: 'Jay Gould'
-    - name: Print previous
-      run: echo 'The time was ${{ steps.hello }}.'
-
 
   deploy:
+    needs: [build, test]
     runs-on: ubuntu-latest
     steps:
     - name: Deploy website
