@@ -1,0 +1,10 @@
+.DS_Store
+node_modules/
+bower_components/
+npm-debug.log
+assets/scripts/scripts.js.map
+assets/scripts/scripts.js
+assets/styles/style.css.map
+assets/styles/login.css.map
+assets/styles/style.css
+assets/styles/login.css

@@ -1,0 +1,24 @@
+$colors: (
+  primary: #195e9b,
+  secondary: #ef8623,
+  grey: #676767,
+  lightgrey: #939393,
+  white: #ffffff
+);
+
+// Background colors 
+@each $name, $color in $colors {
+  .bg-#{$name} {
+    background-color: $color;
+  }
+}
+
+// Text colors
+@each $name, $color in $colors {
+  .text-#{$name} {
+    color: $color;
+    p, h1, h2, h3, h5, ul, li, a {
+      color: $color;
+    }
+  }
+}

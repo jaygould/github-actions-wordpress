@@ -1,0 +1,16 @@
+# Sensitive and server related files
+wp-config.php
+.htaccess
+
+# Ignore the plugins, but keep the plugin directory for later use with Composer
+/wp-content/plugins/*
+!/wp-content/plugins
+!/wp-content/plugins/index.php
+
+# Ignore the uploads
+/wp-content/uploads/*
+!/wp-content/uploads
+
+
+# Annoying files
+.DS_Store
