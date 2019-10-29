@@ -12,6 +12,18 @@ jobs:
     steps:
     - name: Checkout files
       uses: actions/checkout@v1
+    - name: Upload PHP
+      uses: actions/upload-artifact@v1
+      with:
+        name: php-build
+        path: vendor
+    - if: success()
+      name: Send build success message
+      run: echo 'success'
+    - if: failure()
+      name: Send build fail message
+      run: echo 'fail'
+
 
   test:
     runs-on: ubuntu-latest
