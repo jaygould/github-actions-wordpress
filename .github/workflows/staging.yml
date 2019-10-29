@@ -12,13 +12,26 @@ jobs:
     steps:
     - name: Checkout files and setup environment
       uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
+      uses: actions/setup-node@v1
       with:
         node-version: '10.15.3'
-    - name: Build PHP
+    - name: Build plugins
       run: composer update
-    - name: Build JS
+    - name: Upload plugins
+      uses: actions/upload-artifact@v1
+      with:
+        name: plugin-build
+        path: vendor
+    - name: Build assets
       run: cd wp-content/themes/boilerplate && npm install && npm run build
+    - name: Upload assets
+      uses: actions/upload-artifact@v1
+      with:
+        name: js-build
+        path: wp-content/themes/boilerplate/scripts
+      with:
+        name: css-build
+        path: wp-content/themes/boilerplate/styles
 
   test:
     runs-on: ubuntu-latest
@@ -32,7 +45,16 @@ jobs:
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - name: Prepare for deployment
+      uses: actions/checkout@master
+    - name: Download build files
+      uses: actions/download-artifact@v1
+      with:
+        name: plugin-build
+      with:
+        name: js-build
+      with:
+        name: css-build
     - name: Deploy website
       uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
