@@ -42,7 +42,7 @@ jobs:
         path: wp-content/themes/boilerplate/assets/styles
     - if: success()
       name: Send build success message
-      uses: rtCamp/action-slack-notify@master
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
@@ -50,7 +50,7 @@ jobs:
         SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
     - if: failure()
       name: Send build fail message
-      uses: rtCamp/action-slack-notify@master
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
@@ -103,7 +103,7 @@ jobs:
         ARGS: --delete
     - if: success()
       name: Send deployment success message
-      uses: rtCamp/action-slack-notify@master
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
@@ -111,7 +111,7 @@ jobs:
         SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
     - if: failure()
       name: Send deployment fail message
-      uses: rtCamp/action-slack-notify@master
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
