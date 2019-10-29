@@ -54,6 +54,7 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: plugin-build
+        path: vendor
     - name: Download JS
       uses: actions/download-artifact@v1
       with:
