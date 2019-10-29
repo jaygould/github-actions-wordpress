@@ -19,10 +19,8 @@ jobs:
         path: vendor
     - name: Send success/fail message
       if: success()
-      name: Send build success message
       run: echo 'success'
       if: failure()
-      name: Send build fail message
       run: echo 'fail'
 
 
