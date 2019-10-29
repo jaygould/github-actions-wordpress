@@ -12,6 +12,10 @@ jobs:
     steps:
     - name: Checkout files
       uses: actions/checkout@v1
+    - name: Build PHP
+      run: composer update
+    - name: Build JS
+      run: cd wp-content/themes/boilerplate && npm install && npm run build
 
   test:
     runs-on: ubuntu-latest
