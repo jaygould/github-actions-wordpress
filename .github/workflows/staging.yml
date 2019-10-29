@@ -58,10 +58,12 @@ jobs:
       uses: actions/download-artifact@v1
       with:
         name: js-build
+        path: wp-content/themes/boilerplate/assets/scripts
     - name: Download CSS
       uses: actions/download-artifact@v1
       with:
         name: css-build
+        path: wp-content/themes/boilerplate/assets/styles
     - name: Deploy website
       uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
