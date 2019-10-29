@@ -22,10 +22,16 @@ jobs:
       uses: rtCamp/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: Git message
+        SLACK_MESSAGE: The build process failed
+        SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
     - if: failure()
       uses: rtCamp/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: Git message
+        SLACK_MESSAGE: The build process succeeded
+        SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
 
 
   test:
