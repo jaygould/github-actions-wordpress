@@ -29,12 +29,12 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: js-build
-        path: wp-content/themes/boilerplate/scripts
+        path: wp-content/themes/boilerplate/assets/scripts
     - name: Upload CSS
       uses: actions/upload-artifact@v1
       with:
         name: css-build
-        path: wp-content/themes/boilerplate/styles
+        path: wp-content/themes/boilerplate/assets/styles
 
   test:
     runs-on: ubuntu-latest
