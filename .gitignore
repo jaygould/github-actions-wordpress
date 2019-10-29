@@ -12,10 +12,8 @@ wp-config.php
 !/wp-content/uploads
 
 # Built files which should be generated on the server
-/vendor/*
-!/vendor
+/vendor
 /node_modules
-
 
 # Annoying files
 .DS_Store
