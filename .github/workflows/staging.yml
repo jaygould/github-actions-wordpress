@@ -18,11 +18,16 @@ jobs:
         node-version: '10.15.3'
     - name: Build plugins
       run: composer update
+    - name: Upload PHP
+      uses: actions/upload-artifact@v1
+      with:
+        name: php-build
+        path: vendor
     - name: Upload plugins
       uses: actions/upload-artifact@v1
       with:
         name: plugin-build
-        path: vendor
+        path: wp-content/plugins
     - name: Build assets
       run: cd wp-content/themes/boilerplate && npm install && npm run build
     - name: Upload JS
@@ -50,11 +55,16 @@ jobs:
     steps:
     - name: Prepare for deployment
       uses: actions/checkout@master
-    - name: Download plugin
+    - name: Download PHP
+      uses: actions/download-artifact@v1
+      with:
+        name: php-build
+        path: vendor
+    - name: Download plugins
       uses: actions/download-artifact@v1
       with:
         name: plugin-build
-        path: vendor
+        path: wp-content/plugins
     - name: Download JS
       uses: actions/download-artifact@v1
       with:
