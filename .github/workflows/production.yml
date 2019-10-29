@@ -19,10 +19,13 @@ jobs:
         path: vendor
     - if: success()
       name: Send build success message
-      run: echo 'success'
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
     - if: failure()
-      name: Send build fail message
-      run: echo 'fail'
+      uses: rtCamp/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
 
   test:
