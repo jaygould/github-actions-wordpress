@@ -25,11 +25,13 @@ jobs:
         path: vendor
     - name: Build assets
       run: cd wp-content/themes/boilerplate && npm install && npm run build
-    - name: Upload assets
+    - name: Upload JS
       uses: actions/upload-artifact@v1
       with:
         name: js-build
         path: wp-content/themes/boilerplate/scripts
+    - name: Upload CSS
+      uses: actions/upload-artifact@v1
       with:
         name: css-build
         path: wp-content/themes/boilerplate/styles
@@ -48,12 +50,16 @@ jobs:
     steps:
     - name: Prepare for deployment
       uses: actions/checkout@master
-    - name: Download build files
+    - name: Download plugin
       uses: actions/download-artifact@v1
       with:
         name: plugin-build
+    - name: Download JS
+      uses: actions/download-artifact@v1
       with:
         name: js-build
+    - name: Download CSS
+      uses: actions/download-artifact@v1
       with:
         name: css-build
     - name: Deploy website
