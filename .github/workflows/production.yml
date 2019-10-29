@@ -10,23 +10,47 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout files
+    - name: Checkout files and setup environment
       uses: actions/checkout@v1
+    - name: Set up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.15.3'
+    - name: Build plugins
+      run: composer update
     - name: Upload PHP
       uses: actions/upload-artifact@v1
       with:
         name: php-build
         path: vendor
+    - name: Upload plugins
+      uses: actions/upload-artifact@v1
+      with:
+        name: plugin-build
+        path: wp-content/plugins
+    - name: Build assets
+      run: cd wp-content/themes/boilerplate && npm install && npm run build
+    - name: Upload JS
+      uses: actions/upload-artifact@v1
+      with:
+        name: js-build
+        path: wp-content/themes/boilerplate/assets/scripts
+    - name: Upload CSS
+      uses: actions/upload-artifact@v1
+      with:
+        name: css-build
+        path: wp-content/themes/boilerplate/assets/styles
     - if: success()
       name: Send build success message
-      uses: rtCamp/action-slack-notify@master
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
         SLACK_MESSAGE: The build process succeeded
         SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
     - if: failure()
-      uses: rtCamp/action-slack-notify@master
+      name: Send build fail message
+      uses: jaygould/action-slack-notify@master
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         SLACK_USERNAME: Git message
@@ -47,7 +71,28 @@ jobs:
     needs: [build, test]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
+    - name: Prepare for deployment
+      uses: actions/checkout@master
+    - name: Download PHP
+      uses: actions/download-artifact@v1
+      with:
+        name: php-build
+        path: vendor
+    - name: Download plugins
+      uses: actions/download-artifact@v1
+      with:
+        name: plugin-build
+        path: wp-content/plugins
+    - name: Download JS
+      uses: actions/download-artifact@v1
+      with:
+        name: js-build
+        path: wp-content/themes/boilerplate/assets/scripts
+    - name: Download CSS
+      uses: actions/download-artifact@v1
+      with:
+        name: css-build
+        path: wp-content/themes/boilerplate/assets/styles
     - name: Deploy website
       uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
@@ -56,3 +101,20 @@ jobs:
         FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
         REMOTE_DIR: public_html
         ARGS: --delete
+    - if: success()
+      name: Send deployment success message
+      uses: jaygould/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: Git message
+        SLACK_MESSAGE: The deployment process succeeded
+        SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
+    - if: failure()
+      name: Send deployment fail message
+      uses: jaygould/action-slack-notify@master
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_USERNAME: Git message
+        SLACK_MESSAGE: The deployment process failed
+        SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
+        SLACK_COLOR: '#BE2625'
