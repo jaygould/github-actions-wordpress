@@ -17,10 +17,11 @@ jobs:
       with:
         name: php-build
         path: vendor
-    - name: Send success/fail message
-      if: success()
+    - if: success()
+      name: Send build success message
       run: echo 'success'
-      if: failure()
+    - if: failure()
+      name: Send build fail message
       run: echo 'fail'
 
 
