@@ -1,6 +1,7 @@
 # Sensitive and server related files
 wp-config.php
 .htaccess
+auth.json
 
 # Ignore the plugins, but keep the plugin directory for later use with Composer
 /wp-content/plugins/*
