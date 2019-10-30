@@ -6,6 +6,7 @@ get_header(); ?>
 
 <!-- Slider -->
 <div class="grid-container fluid np pr">
+  
 </div>
 
 
