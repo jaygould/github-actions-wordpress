@@ -1,10 +1,13 @@
 name: Staging CI
 
 on:
+
   push:
     branches:
-    - staging
-jobs:  
+    - master
+
+jobs:    
+
   build:
     runs-on: ubuntu-latest
     steps:
@@ -13,7 +16,7 @@ jobs:
     - name: Set up Node
       uses: actions/setup-node@v1
       with:
-        node-version: '10.15.3'
+        node-version: '10.15.3'.
     - name: Build plugins
       run: composer update
     - name: Upload PHP
@@ -21,23 +24,13 @@ jobs:
       with:
         name: php-build
         path: vendor
-    - name: Upload plugins
-      uses: actions/upload-artifact@v1
-      with:
-        name: plugin-build
-        path: wp-content/plugins
     - name: Build assets
-      run: cd wp-content/themes/boilerplate && npm install && npm run build
-    - name: Upload JS
+      run: npm install && npm run build
+    - name: Upload assets
       uses: actions/upload-artifact@v1
       with:
         name: js-build
-        path: wp-content/themes/boilerplate/assets/scripts
-    - name: Upload CSS
-      uses: actions/upload-artifact@v1
-      with:
-        name: css-build
-        path: wp-content/themes/boilerplate/assets/styles
+        path: assets
     - if: success()
       name: Send build success message
       uses: jaygould/action-slack-notify@master
@@ -55,15 +48,9 @@ jobs:
         SLACK_MESSAGE: The build process failed
         SLACK_ICON: https://jaygould.co.uk/icons/icon-192x192.png
         SLACK_COLOR: '#BE2625'
-  test:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Hello world
-      uses: actions/hello-world-javascript-action@v1
-      with:
-        who-to-greet: 'Jay Gould'
+
   deploy:
-    needs: [build, test]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - name: Prepare for deployment
@@ -73,21 +60,11 @@ jobs:
       with:
         name: php-build
         path: vendor
-    - name: Download plugins
-      uses: actions/download-artifact@v1
-      with:
-        name: plugin-build
-        path: wp-content/plugins
-    - name: Download JS
+    - name: Download assets
       uses: actions/download-artifact@v1
       with:
         name: js-build
-        path: wp-content/themes/boilerplate/assets/scripts
-    - name: Download CSS
-      uses: actions/download-artifact@v1
-      with:
-        name: css-build
-        path: wp-content/themes/boilerplate/assets/styles
+        path: assets
     - name: Deploy website
       uses: jaygould/FTP-Deploy-Action@2.0.0
       env:
