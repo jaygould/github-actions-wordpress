@@ -16,7 +16,7 @@ jobs:
     - name: Set up Node
       uses: actions/setup-node@v1
       with:
-        node-version: '10.15.3'.
+        node-version: '10.15.3'
     - name: Build plugins
       run: composer update
     - name: Upload PHP
